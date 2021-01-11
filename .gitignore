@@ -10,3 +10,4 @@ esxcli-powerShell.ps1
 noGitFiles
 Report/*
 config.ps1
+.DS_Store

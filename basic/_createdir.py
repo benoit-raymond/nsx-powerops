@@ -32,7 +32,8 @@ import shutil
 import os
 now = datetime.datetime.today() 
 nTime = now.strftime("%d-%m-%Y-%H-%M-%S")
-source = '/home/powerops/powerops_documentation/POps_doc_'
+#source = '/home/powerops/powerops_documentation/POps_doc_'
+source = '/Users/ben/Documents/scripts/powerops/powerops_documentation/POps_doc_'
 dest = os.path.join(source+nTime)
     
 if not os.path.exists(dest):
