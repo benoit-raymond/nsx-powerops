@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3
+# coding: utf-8
 #############################################################################################################################################################################################
 #                                                                                                                                                                                           #
 # NSX-T Power Operations                                                                                                                                                                    #
@@ -54,26 +56,30 @@ def main():
         tnode_dict.update({transport_nodes[n]['node_id']:transport_nodes[n]['display_name']})
         
     for uuid in tnode_dict.items():
-        tunnel_url = '/api/v1/transport-nodes/' + str(uuid[0]) + '/tunnels'
-        tunnel_json = session.get('https://' + auth_list[0] + str(tunnel_url), auth=(auth_list[1], auth_list[2]), verify=session.verify).json()
-        print('')
-        print('Transport Node: ',uuid[1])
-        print('')
-        x = (len(tunnel_json['tunnels']))
-        
-        if x > 0:
-            for n  in range(x):
-                print('Tunnel name: ',tunnel_json['tunnels'][n]['name'])
-                print('Tunnel Status: ',tunnel_json['tunnels'][n]['status'])
-                print('Egress Interface: ',tunnel_json['tunnels'][n]['egress_interface'])
-                print('Local Tunnel IP: ',tunnel_json['tunnels'][n]['local_ip'])
-                print('Remote Tunnel IP: ',tunnel_json['tunnels'][n]['remote_ip'])
-                print('Remote Node ID: ',tunnel_json['tunnels'][n]['remote_node_id'])
-                print('Remote Node: ',tunnel_json['tunnels'][n]['remote_node_display_name'])
-                print('Tunnel Encapsulation: ',tunnel_json['tunnels'][n]['encap'])
-                print('')
-        else:
+        try:
+            tunnel_url = '/api/v1/transport-nodes/' + str(uuid[0]) + '/tunnels'
+            tunnel_json = session.get('https://' + auth_list[0] + str(tunnel_url), auth=(auth_list[1], auth_list[2]), verify=session.verify).json()
+            print('')
+            print('Transport Node: ',uuid[1])
+            print('')
+            x = (len(tunnel_json['tunnels']))
+            
+            if x > 0:
+                for n  in range(x):
+                    print('Tunnel name: ',tunnel_json['tunnels'][n]['name'])
+                    print('Tunnel Status: ',tunnel_json['tunnels'][n]['status'])
+                    print('Egress Interface: ',tunnel_json['tunnels'][n]['egress_interface'])
+                    print('Local Tunnel IP: ',tunnel_json['tunnels'][n]['local_ip'])
+                    print('Remote Tunnel IP: ',tunnel_json['tunnels'][n]['remote_ip'])
+                    print('Remote Node ID: ',tunnel_json['tunnels'][n]['remote_node_id'])
+                    print('Remote Node: ',tunnel_json['tunnels'][n]['remote_node_display_name'])
+                    print('Tunnel Encapsulation: ',tunnel_json['tunnels'][n]['encap'])
+                    print('')
+            else:
+                print('**** No tunnels exist for this transport node ****')
+        except:
             print('**** No tunnels exist for this transport node ****')
+            print('')
 
 if __name__ == "__main__":
     main()
